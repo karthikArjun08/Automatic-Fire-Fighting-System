@@ -79,51 +79,6 @@ Fire on Left	Servo rotates left + Pump ON
 Fire on Right	Servo rotates right + Pump ON
 Fire on Both	Servo centers + Pump ON
 No Fire	Pump OFF
-💻 Arduino Code
-#include <Servo.h>
-
-#define FLAME_LEFT 2
-#define FLAME_RIGHT 3
-#define RELAY_PIN 8
-#define SERVO_PIN 9
-
-Servo fireServo;
-
-void setup() {
-  pinMode(FLAME_LEFT, INPUT);
-  pinMode(FLAME_RIGHT, INPUT);
-  pinMode(RELAY_PIN, OUTPUT);
-
-  digitalWrite(RELAY_PIN, HIGH); // Relay OFF
-  fireServo.attach(SERVO_PIN);
-  fireServo.write(90); // Center position
-
-  Serial.begin(9600);
-}
-
-void loop() {
-  int leftFlame = digitalRead(FLAME_LEFT);
-  int rightFlame = digitalRead(FLAME_RIGHT);
-
-  if (leftFlame == LOW && rightFlame == HIGH) {
-    fireServo.write(40);
-    digitalWrite(RELAY_PIN, LOW);
-  }
-  else if (rightFlame == LOW && leftFlame == HIGH) {
-    fireServo.write(140);
-    digitalWrite(RELAY_PIN, LOW);
-  }
-  else if (leftFlame == LOW && rightFlame == LOW) {
-    fireServo.write(90);
-    digitalWrite(RELAY_PIN, LOW);
-  }
-  else {
-    fireServo.write(90);
-    digitalWrite(RELAY_PIN, HIGH);
-  }
-
-  delay(200);
-}
 
 🧪 Testing & Calibration
 
